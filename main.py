@@ -38,13 +38,12 @@ def process():
 
         # Create the plot
         fig = Figure(figsize=(12, 8))
-        result = town_module.analyze_town_data(fourfive_filtered_df, fig)
+        result = town_module.analyze_town_data(fourfive_filtered_df)
         
         # Convert plot to SVG
         output = io.StringIO()
         FigureCanvasSVG(fig).print_svg(output)
         result['svg'] = output.getvalue()
-        plt.close(fig)  # Clean up the figure
         
         return jsonify(result)
     return jsonify({"error": "Town not found"})
