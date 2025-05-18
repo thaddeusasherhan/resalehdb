@@ -52,9 +52,14 @@ def process():
         fig.savefig(f"static/{image_filename}")
         plt.close(fig)
         
+        # Get latest median price
+        latest_month_data = fourfive_filtered_df[fourfive_filtered_df['town'] == town].sort_values('month', ascending=False).iloc[0]
+        latest_median_price = latest_month_data['price_per_sqm']
+        
         return jsonify({
             "status": "success",
-            "image": image_filename
+            "image": image_filename,
+            "median_price": round(latest_median_price, 2)
         })
         
     return jsonify({"error": "Town not found", "status": "error"})
