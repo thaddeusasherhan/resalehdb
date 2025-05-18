@@ -49,6 +49,12 @@ def process():
         FigureCanvasSVG(fig).print_svg(output)
         result['svg'] = output.getvalue()
         
+        # Save the plot with a consistent filename pattern
+        image_filename = f"{town.lower().replace('/', '_').replace(' ', '_')}_analysis.png"
+        fig.savefig(f"static/{image_filename}")
+        plt.close(fig)
+        
+        result['image'] = image_filename
         return jsonify(result)
     return jsonify({"error": "Town not found"})
 

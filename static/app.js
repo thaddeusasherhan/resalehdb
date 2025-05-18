@@ -21,8 +21,9 @@ async function onSubmit() {
       return;
     }
     
-    const mapDiv = document.getElementById('map');
-    mapDiv.innerHTML = data.svg;
+    const img = document.getElementById('analysis-image');
+    img.src = `/static/${data.image}`;
+    img.style.display = 'block';
     
     document.getElementById('prices').innerHTML = `Median Price: ${data.median_price}`;
     document.getElementById('median').innerHTML = `Price Range: ${data.min_price} - ${data.max_price}`;
