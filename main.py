@@ -1,6 +1,11 @@
-from flask import Flask, request, render_template, jsonify
+from flask import Flask, request, render_template, jsonify, send_from_directory
+import os
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
+
+@app.route('/static/<path:filename>')
+def serve_static(filename):
+    return send_from_directory(app.static_folder, filename)
 
 @app.route("/")
 def index():
@@ -46,12 +51,6 @@ def process():
         fig.savefig(f"static/{image_filename}")
         plt.close(fig)
         
-        # Create a response dictionary
-        response = {
-            'image': image_filename,
-            'status': 'success'
-        }
-        return jsonify(response)
     return jsonify({"error": "Town not found", "status": "error"})
 
 if __name__ == "__main__":
