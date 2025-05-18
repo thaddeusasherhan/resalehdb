@@ -1,11 +1,6 @@
-from flask import Flask, request, render_template, jsonify, send_from_directory
-import os
+from flask import Flask, request, render_template, jsonify
 
-app = Flask(__name__, static_folder='static')
-
-@app.route('/static/<path:filename>')
-def serve_static(filename):
-    return send_from_directory(app.static_folder, filename)
+app = Flask(__name__)
 
 @app.route("/")
 def index():
