@@ -38,7 +38,7 @@ def process():
 
         # Create the plot
         fig = Figure(figsize=(12, 8))
-        result = town_module.analyze_town_data(fourfive_filtered_df, fig=fig)
+        result = town_module.analyze_town_data(fourfive_filtered_df)
         
         # Convert plot to SVG
         output = io.StringIO()
