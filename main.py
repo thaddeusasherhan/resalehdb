@@ -48,8 +48,14 @@ def process():
 
         # Save the plot with a consistent filename pattern
         image_filename = f"{town.lower().replace('/', '_').replace(' ', '_')}_analysis.png"
+        # Save to static folder and include in response
         fig.savefig(f"static/{image_filename}")
         plt.close(fig)
+        
+        return jsonify({
+            "status": "success",
+            "image": image_filename
+        })
         
     return jsonify({"error": "Town not found", "status": "error"})
 

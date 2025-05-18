@@ -12,7 +12,8 @@ function onSubmit() {
   .then(response => response.json())
   .then(data => {
     if (data.status === 'success') {
-      analysisImage.src = `/static/${data.image}`;
+      // Add timestamp to prevent caching
+      analysisImage.src = `/static/${data.image}?t=${Date.now()}`;
       analysisImage.style.display = 'block';
     } else {
       alert('Town not found');
