@@ -46,9 +46,13 @@ def process():
         fig.savefig(f"static/{image_filename}")
         plt.close(fig)
         
-        result['image'] = image_filename
-        return jsonify(result)
-    return jsonify({"error": "Town not found"})
+        # Create a response dictionary
+        response = {
+            'image': image_filename,
+            'status': 'success'
+        }
+        return jsonify(response)
+    return jsonify({"error": "Town not found", "status": "error"})
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)

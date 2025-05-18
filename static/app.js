@@ -1,38 +1,27 @@
-async function onSubmit() {
-  const location = document.getElementById('locationInput').value;
-  if (!location) {
-    alert("Please enter a location.");
-    return;
-  }
+function onSubmit() {
+  const locationInput = document.getElementById('locationInput').value;
+  const analysisImage = document.getElementById('analysis-image');
 
-  try {
-    const formData = new FormData();
-    formData.append('locationInput', location);
-
-    const response = await fetch('/process', {
-      method: 'POST',
-      body: formData
-    });
-
-    const data = await response.json();
-
-    if (data.error) {
-      alert(data.error);
-      return;
+  fetch('/process', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: `locationInput=${encodeURIComponent(locationInput)}`
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.status === 'success') {
+      analysisImage.src = `/static/${data.image}`;
+      analysisImage.style.display = 'block';
+    } else {
+      alert('Town not found');
     }
-    
-    const img = document.getElementById('analysis-image');
-    img.src = `/static/${data.image}`;
-    img.style.display = 'block';
-    
-    document.getElementById('prices').innerHTML = `Median Price: ${data.median_price}`;
-    document.getElementById('median').innerHTML = `Price Range: ${data.min_price} - ${data.max_price}`;
-    document.getElementById('distance').innerHTML = `Price Variance: ${data.variance}`;
-    document.getElementById('amenities').innerHTML = `Standard Deviation: ${data.std}`;
-  } catch (error) {
+  })
+  .catch(error => {
     console.error('Error:', error);
-    alert('An error occurred while processing your request.');
-  }
+    alert('An error occurred');
+  });
 }
 
 // Stub functions
