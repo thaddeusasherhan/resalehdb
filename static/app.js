@@ -1,4 +1,8 @@
-async function onSubmit() {
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('submitButton').addEventListener('click', submitForm);
+});
+
+async function submitForm() {
   const location = document.getElementById('locationInput').value;
   if (!location) {
     alert("Please enter a location.");
