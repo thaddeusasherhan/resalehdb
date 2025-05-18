@@ -15,7 +15,6 @@ function onSubmit() {
       // Add timestamp to prevent caching
       analysisImage.src = `/static/${data.image}?t=${Date.now()}`;
       analysisImage.style.display = 'block';
-      document.getElementById('median-price').textContent = `Latest Median Price: $${data.median_price} per sqm`;
     } else {
       alert('Town not found');
     }
