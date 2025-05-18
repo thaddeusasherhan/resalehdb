@@ -35,20 +35,12 @@ def process():
         import base64
         from matplotlib.figure import Figure
         from matplotlib.backends.backend_svg import FigureCanvasSVG
+        import matplotlib.pyplot as plt
 
         # Create the plot
         fig = Figure(figsize=(12, 8))
         result = town_module.analyze_town_data(fourfive_filtered_df)
-        
-        # Create plot on the figure
-        ax = fig.add_subplot(111)
-        result = town_module.analyze_town_data(fourfive_filtered_df, ax=ax)
-        
-        # Convert plot to SVG
-        output = io.StringIO()
-        FigureCanvasSVG(fig).print_svg(output)
-        result['svg'] = output.getvalue()
-        
+
         # Save the plot with a consistent filename pattern
         image_filename = f"{town.lower().replace('/', '_').replace(' ', '_')}_analysis.png"
         fig.savefig(f"static/{image_filename}")
