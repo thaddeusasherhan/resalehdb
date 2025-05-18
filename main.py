@@ -40,6 +40,10 @@ def process():
         fig = Figure(figsize=(12, 8))
         result = town_module.analyze_town_data(fourfive_filtered_df)
         
+        # Create plot on the figure
+        ax = fig.add_subplot(111)
+        result = town_module.analyze_town_data(fourfive_filtered_df, ax=ax)
+        
         # Convert plot to SVG
         output = io.StringIO()
         FigureCanvasSVG(fig).print_svg(output)
