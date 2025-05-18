@@ -31,7 +31,20 @@ def process():
         filtered_df['price_per_sqm'] = filtered_df['resale_price'] / filtered_df['floor_area_sqm']
         fourfive_filtered_df = filtered_df[filtered_df['flat_type'].isin(['4 ROOM', '5 ROOM'])]
 
-        result = town_module.analyze_town_data(fourfive_filtered_df)
+        import io
+        import base64
+        from matplotlib.figure import Figure
+        from matplotlib.backends.backend_svg import FigureCanvasSVG
+
+        # Create the plot
+        fig = Figure(figsize=(12, 8))
+        result = town_module.analyze_town_data(fourfive_filtered_df, fig=fig)
+        
+        # Convert plot to SVG
+        output = io.StringIO()
+        FigureCanvasSVG(fig).print_svg(output)
+        result['svg'] = output.getvalue()
+        
         return jsonify(result)
     return jsonify({"error": "Town not found"})
 

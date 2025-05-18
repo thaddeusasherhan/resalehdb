@@ -20,7 +20,10 @@ async function onSubmit() {
       alert(data.error);
       return;
     }
-
+    
+    const mapDiv = document.getElementById('map');
+    mapDiv.innerHTML = data.svg;
+    
     document.getElementById('prices').innerHTML = `Median Price: ${data.median_price}`;
     document.getElementById('median').innerHTML = `Price Range: ${data.min_price} - ${data.max_price}`;
     document.getElementById('distance').innerHTML = `Price Variance: ${data.variance}`;
