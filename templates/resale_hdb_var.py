@@ -3,7 +3,7 @@ import json
 import re
 import matplotlib.pyplot as plt
 import pandas as pd
-from hdb_data_loader import HDBDataLoader, filter_by_date
+from .hdb_data_loader import HDBDataLoader, filter_by_date
 
 # Configuration
 DATASET_ID = 'd_8b84c4ee58e3cfc0ece0d773c8ca6abc'# Make sure to set this
