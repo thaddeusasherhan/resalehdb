@@ -56,12 +56,8 @@ def analyze_town_data(df, town_name='ANG MO KIO'):
     plt.xlabel('Month')
     plt.ylabel('Price per Sqm')
     plt.xticks(rotation=45)
-    plt.title(f'Price per Sqm Range with Median by Month - {town_name}')
-    plt.xlabel('Month')
-    plt.ylabel('Price per Sqm')
-    plt.xticks(rotation=45)
     plt.tight_layout()
-    plt.savefig(f"static/{town_name.lower().replace('/', '_').replace(' ', '_')}_analysis.png", dpi=100, bbox_inches='tight')
+    plt.savefig(f"ang_mo_kio_analysis.png")
     plt.close()
 
 if __name__ == "__main__":
