@@ -52,18 +52,6 @@ def process():
         fig.savefig(f"static/{image_filename}")
         plt.close(fig)
         
-        # Wait for file to be fully written
-        import time
-        import os
-        
-        max_attempts = 10
-        attempt = 0
-        while attempt < max_attempts:
-            if os.path.exists(f"static/{image_filename}") and os.path.getsize(f"static/{image_filename}") > 0:
-                break
-            time.sleep(0.1)
-            attempt += 1
-            
         # Get latest median price
         latest_data = fourfive_filtered_df[fourfive_filtered_df['town'] == town].sort_values('month', ascending=False).iloc[0]
         latest_median_price = round(latest_data['price_per_sqm'], 2)
