@@ -57,7 +57,7 @@ def analyze_town_data(df, town_name='ANG MO KIO'):
     plt.ylabel('Price per Sqm')
     plt.xticks(rotation=45)
     plt.tight_layout()
-    plt.savefig(f"ang_mo_kio_analysis.png")
+    plt.savefig(f"static/ang_mo_kio_analysis.png", dpi=100, bbox_inches='tight')
     plt.close()
 
 if __name__ == "__main__":
