@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template, jsonify, send_from_directory
 import os
+import matplotlib.pyplot as plt
 
 app = Flask(__name__, static_folder='static')
 
@@ -36,24 +37,34 @@ def process():
         filtered_df['price_per_sqm'] = filtered_df['resale_price'] / filtered_df['floor_area_sqm']
         fourfive_filtered_df = filtered_df[filtered_df['flat_type'].isin(['4 ROOM', '5 ROOM'])]
 
+        """
         import io
         import base64
         from matplotlib.figure import Figure
         from matplotlib.backends.backend_svg import FigureCanvasSVG
         import matplotlib.pyplot as plt
-
+        
         # Create the plot
         fig = Figure(figsize=(12, 8))
         result = town_module.analyze_town_data(fourfive_filtered_df)
-
+        
         # Save the plot with a consistent filename pattern
         image_filename = f"{town.lower().replace('/', '_').replace(' ', '_')}_analysis.png"
         # Save to static folder and include in response
         fig.savefig(f"static/{image_filename}")
         plt.close(fig)
         
+        """
+
+        # Create the plot using the modified analyze_town_data function
+        fig = town_module.analyze_town_data(fourfive_filtered_df)
+        # Save the plot to a file
+        image_filename = f"{town.lower().replace('/', '_').replace(' ', '_')}_analysis.png"
+        fig.savefig(f"static/{image_filename}")
+        plt.close(fig)  # Close the figure to free memory
+        
         # Get latest median price
-        latest_data = fourfive_filtered_df[fourfive_filtered_df['town'] == town].sort_values('month', ascending=False).iloc[0]
+        latest_data = fourfive_filtered_df[fourfive_filtered_df['town'] ==                         town].sort_values('month', ascending=False).iloc[0]
         latest_median_price = round(latest_data['price_per_sqm'], 2)
         
         return jsonify({

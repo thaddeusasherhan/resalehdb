@@ -25,7 +25,7 @@ def analyze_town_data(df, town_name='BEDOK'):
     grouped['year_month_str'] = grouped['year_month'].astype(str)
 
     # Create the plot
-    plt.figure(figsize=(12, 8))
+    fig = plt.figure(figsize=(12, 8))
     
     # For every group (each month), draw a vertical line from min to max
     for _, row in grouped.iterrows():
@@ -57,8 +57,10 @@ def analyze_town_data(df, town_name='BEDOK'):
     plt.ylabel('Price per Sqm')
     plt.xticks(rotation=45)
     plt.tight_layout()
-    plt.savefig(f"bedok_analysis.png")
-    plt.close()
+
+    return fig
+    #plt.savefig(f"bedok_analysis.png")
+    #plt.close()
 
 if __name__ == "__main__":
     # Load the main dataframe - you'll need to modify this path
